@@ -134,8 +134,8 @@ public class ProjectController {
 			    filename = studentId + filename.substring(filename.length() - 4);			
 			    student.setImageName(filename);
 			    System.out.println("File Name: " + filename);
-			    String accessKeyId = "AKIA6I5VDKDXRJJLQH6W";
-			    String secretAccessKey =  "afhxsz0SG3NaQNF/C8yBjtCqPmQeqTfwwxcvYEyy";
+			    String accessKeyId = "YOUR_ACCESS_KEY";
+			    String secretAccessKey =  "YOUR_SECRET_KEY";
 			    String region = "us-east-2";
 			    String bucketName = "neelbucket3";
 			    
@@ -180,8 +180,8 @@ public class ProjectController {
 	      System.out.println("bytes.size="+ bytes.length);
 			
 			if(filename.endsWith(".jpg") || filename.endsWith(".png") || filename.endsWith(".JPG") || filename.endsWith(".PNG") || filename.endsWith(".JEPG") || filename.endsWith(".jpeg")){
-			    String accessKeyId = "AKIA6I5VDKDXRJJLQH6W";
-			    String secretAccessKey =  "afhxsz0SG3NaQNF/C8yBjtCqPmQeqTfwwxcvYEyy";
+			    String accessKeyId = "YOUR_ACCESS_KEY";
+			    String secretAccessKey =  "YOUR_SECRET_KEY";
 			    String region = "us-east-2";
 			    String bucketName = "neelbucket4";
 			    
