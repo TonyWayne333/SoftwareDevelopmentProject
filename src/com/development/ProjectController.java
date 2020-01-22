@@ -183,7 +183,6 @@ public class ProjectController {
 			    String accessKeyId = "YOUR_ACCESS_KEY";
 			    String secretAccessKey =  "YOUR_SECRET_KEY";
 			    String region = "us-east-2";
-			    //Just for try
 			    String bucketName = "neelbucket4";
 			    
 			    //AWS Access Key ID and Secret Access Key
