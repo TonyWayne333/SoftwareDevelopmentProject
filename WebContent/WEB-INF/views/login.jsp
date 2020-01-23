@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +15,6 @@ fieldset {
   margin-bottom: 30px;
   border: none;
 }
-
 legend {
   font-size: 1.4em;
   margin-bottom: 10px;
@@ -47,7 +47,7 @@ h1{
     </fieldset>
     	<button type="submit" class="btn btn-primary">Login</button>  
     
-    <p>Don't have an account? <a href="signup.jsp">Sign up</a> here.</p>
+    <p>Don't have an account? <a href="${contextPath}/newProfessor">Sign up</a> here.</p>
     </form>
 </body>
 </html>

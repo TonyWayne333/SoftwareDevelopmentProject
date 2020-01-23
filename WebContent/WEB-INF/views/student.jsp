@@ -27,7 +27,7 @@ h1{
   color:  #48B4E6;
 }
 </style>
-<title>Sign Up Page</title>
+<title>Registration Page</title>
 
 </head>
 <body>

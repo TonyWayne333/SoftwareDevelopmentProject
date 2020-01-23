@@ -222,12 +222,18 @@ public class ProjectController {
 		return new ModelAndView("login");
 	}
 	@RequestMapping("/student")
-	   public ModelAndView student(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
-
-		session.invalidate();
+	   public ModelAndView student(HttpServletRequest request,HttpServletResponse response) {
 		return new ModelAndView("student");
 	}
+	@RequestMapping("/professor")
+	   public ModelAndView professor(HttpServletRequest request,HttpServletResponse response) {
+		return new ModelAndView("login");
+	}
 	
+	@RequestMapping("/newProfessor")
+	   public ModelAndView newProfessor(HttpServletRequest request) {
+		return new ModelAndView("signup");
+	}
 	@RequestMapping("/uploadphoto")
 	   public ModelAndView uploadPhoto(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
 		if(session.getValue("professorId").equals(null)) {
