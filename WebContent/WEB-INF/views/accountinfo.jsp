@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,7 +38,6 @@ h1{
 }
 </style>
 
-
 </head>
 <body>
 	
@@ -49,14 +49,17 @@ h1{
 
   		<div class="collapse navbar-collapse" id="navbarColor01">
     		<ul class="navbar-nav mr-auto">
+    			<li class="nav-item">
+        			<a class="nav-link" href="${contextPath}/classlist">Class List</a>
+      			</li>
+      			<li class="nav-item">
+        			<a class="nav-link" href="${contextPath}/uploadphoto">Take Attendance</a>
+      			</li>
       			<li class="nav-item active">
         			<a class="nav-link" href="#">Account Details <span class="sr-only">(current)</span></a>
       			</li>
       			<li class="nav-item">
-        			<a class="nav-link" href="http://localhost:9090/SoftwareDevelopmentProject/uploadphoto">Upload Photo</a>
-      			</li>
-      			<li class="nav-item">
-        			<a class="nav-link" href="http://localhost:9090/SoftwareDevelopmentProject/logout">Log Out</a>
+        			<a class="nav-link" href="${contextPath}/logout">Log Out</a>
       			</li>
     		</ul>
   		</div>

@@ -6,6 +6,8 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<title>Class List</title>
+
 <link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/bootstrap.css" />" rel="stylesheet">
 <style>
@@ -18,38 +20,36 @@ legend {
   font-size: 1.4em;
   margin-bottom: 10px;
 }
-form {
-  max-width: 400px;
-  margin: 10px auto;
-  padding: 10px 20px;
-  border-radius: 8px;
-}
 h1{
   color:  #48B4E6;
 }
 
 .jumbotron{
-	max-width: 500px;
-	height: 400px;
+	text-align: center;
+	max-width: 750px;
+	height: 350px;
 	margin: 20px auto;
 	padding: 20px;
 }
 </style>
-<title>Upload Photo to Take Attendance</title>
+
+
 </head>
 <body>
+	
 	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  		<a class="navbar-brand" href="#">${professor.getFirstName()} ${professor.getLastName()}</a>
+  		<a class="navbar-brand" href="#">${model.professor.getFirstName()} ${model.professor.getLastName()}</a>
   		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
     		<span class="navbar-toggler-icon"></span>
   		</button>
-		<div class="collapse navbar-collapse" id="navbarColor01">
+
+  		<div class="collapse navbar-collapse" id="navbarColor01">
     		<ul class="navbar-nav mr-auto">
-    			<li class="nav-item">
-        			<a class="nav-link" href="${contextPath}/classlist">Class List</a>
+    			<li class="nav-item active">
+        			<a class="nav-link" href="#">Class List<span class="sr-only">(current)</span></a>
       			</li>
-    		    <li class="nav-item active">
-        			<a class="nav-link" href="#">Take Attendance<span class="sr-only">(current)</span></a>
+      			<li class="nav-item">
+        			<a class="nav-link" href="${contextPath}/uploadphoto">Take Attendance</a>
       			</li>
       			<li class="nav-item">
         			<a class="nav-link" href="${contextPath}/accountinfo">Account Details</a>
@@ -60,17 +60,33 @@ h1{
     		</ul>
   		</div>
 	</nav>	
+	
 	<div class="jumbotron">
-		<form action="photoupload" method="post" enctype="multipart/form-data">  
-		<h1 align="center">Take Attendance</h1>
-		<fieldset>
-	    	<div class="form-group">
-	      		<label for="photo">Upload Class Photo</label>
-				<input type="file" name="file" required/>
-	    	</div>
-	    </fieldset>
-	    	<input type="submit" class="btn btn-primary" value="Upload" />
-	    </form>
-    </div>
+		<h1>Class List</h1>
+		<table class="table table-hover">
+			<thead>
+				<tr class="table-active">
+					<th scope="col">Student ID</th>
+      				<th scope="col">First Name</th>
+      				<th scope="col">Last Name</th>
+      				<th scope="col">Presence</th>
+      				<th scope="col">Email ID</th>
+      				<th scope="col">Phone Number</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${model.students}" var="student">
+					<tr class="table-secondary">
+						<th scope="col">${student.getStudentId()}</th>
+						<th scope="col">${student.getFirstName()}</th>
+						<th scope="col">${student.getLastName()}</th>
+						<th scope="col">${student.getPresence()}</th>
+						<th scope="col">${student.getEmailId()}</th>
+						<th scope="col">${student.getPhone()}</th>												
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	</div>
 </body>
 </html>
