@@ -20,34 +20,41 @@ legend {
   margin-bottom: 10px;
 }
 form {
-  max-width: 400px;
-  margin: 10px auto;
   padding: 10px 20px;
   border-radius: 8px;
 }
 h1{
   color:  #48B4E6;
 }
+
+.jumbotron{
+	max-width: 400px;
+	height: 430px;
+	margin: 20px auto;
+	padding: 20px;
+}
 </style>
 
 </head>
 <body>
-<form action="login" method="post">  
-	<h1 align="center">Login</h1>
-	<fieldset>
-		<div class="form-group">
-      		<label for="userName">User Name</label>
-      		<input type="text" class="form-control" name="userName" placeholder="Enter user name" required>
-      		<small class="form-text text-muted">We'll never share your user name with anyone else.</small>
-    	</div>
-    	<div class="form-group">
-      		<label for="password">Password</label>
-      		<input type="password" class="form-control" name="password" placeholder="Enter Password" required>
-    	</div>
-    </fieldset>
-    	<button type="submit" class="btn btn-primary">Login</button>  
-    
-    <p>Don't have an account? <a href="${contextPath}/newProfessor">Sign up</a> here.</p>
-    </form>
+	<div class="jumbotron">	
+		<form action="login" method="post">  
+			<h1 align="center">Login</h1>
+			<fieldset>
+				<div class="form-group">
+		      		<label for="userName">Email ID</label>
+		      		<input type="text" class="form-control" name="userName" placeholder="Enter Email ID" required>
+		      		<small class="form-text text-muted">We'll never share your email id with anyone else.</small>
+		    	</div>
+		    	<div class="form-group">
+		      		<label for="password">Password</label>
+		      		<input type="password" class="form-control" name="password" placeholder="Enter Password" required>
+		    	</div>
+		    </fieldset>
+		    	<button type="submit" class="btn btn-primary">Login</button>  
+		    
+		    <p>Don't have an account? <a href="${contextPath}/newProfessor">Sign up</a> here.</p>
+		</form>
+	</div>
 </body>
 </html>

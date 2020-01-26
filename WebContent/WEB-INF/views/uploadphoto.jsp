@@ -26,42 +26,47 @@ form {
 h1{
   color:  #48B4E6;
 }
+
+.jumbotron{
+	max-width: 500px;
+	height: 400px;
+	margin: 20px auto;
+	padding: 20px;
+}
 </style>
 <title>Upload Photo</title>
 </head>
 <body>
-		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href="#">${professor.getFirstName()} ${professor.getLastName()}</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarColor01">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="http://localhost:9090/SoftwareDevelopmentProject/accountinfo">Account Details</a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Upload Photo<span class="sr-only">(current)</span></a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link" href="http://localhost:9090/SoftwareDevelopmentProject/logout">Log Out</a>
-      </li>
-    </ul>
-  </div>
-</nav>	
-	
-	<form action="photoupload" method="post" enctype="multipart/form-data">  
-	<h1 align="center">Upload Photo</h1>
-	<fieldset>
-    	<div class="form-group">
-      		<label for="photo">Upload Your Photo</label>
-			<input type="file" name="file" required/>
-    	</div>
-    </fieldset>
-    	<input type="submit" class="btn btn-primary" value="Upload" />
-
-    </form>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  		<a class="navbar-brand" href="#">${professor.getFirstName()} ${professor.getLastName()}</a>
+  		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+    		<span class="navbar-toggler-icon"></span>
+  		</button>
+		<div class="collapse navbar-collapse" id="navbarColor01">
+    		<ul class="navbar-nav mr-auto">
+      			<li class="nav-item">
+        			<a class="nav-link" href="http://localhost:9090/SoftwareDevelopmentProject/accountinfo">Account Details</a>
+      			</li>
+      			<li class="nav-item active">
+        			<a class="nav-link" href="#">Upload Photo<span class="sr-only">(current)</span></a>
+      			</li>
+      			<li class="nav-item">
+        			<a class="nav-link" href="http://localhost:9090/SoftwareDevelopmentProject/logout">Log Out</a>
+      			</li>
+    		</ul>
+  		</div>
+	</nav>	
+	<div class="jumbotron">
+		<form action="photoupload" method="post" enctype="multipart/form-data">  
+		<h1 align="center">Take Attendance</h1>
+		<fieldset>
+	    	<div class="form-group">
+	      		<label for="photo">Upload Class Photo</label>
+				<input type="file" name="file" required/>
+	    	</div>
+	    </fieldset>
+	    	<input type="submit" class="btn btn-primary" value="Upload" />
+	    </form>
+    </div>
 </body>
 </html>

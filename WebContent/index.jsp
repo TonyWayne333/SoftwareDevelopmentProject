@@ -23,11 +23,17 @@ legend {
 h1{
   color:  #48B4E6;
 }
+
+.jumbotron{
+	text-align: center;
+	margin: 45px;
+}
+
 </style>
 
 </head>
 <body>
-<div class="jumbotron">
+<div class="jumbotron" align="center">
   <h1 class="display">Welcome to Online Attendance System</h1>
   <p class="lead">Please select your role:</p>
 	
