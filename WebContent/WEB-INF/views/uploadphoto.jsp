@@ -29,6 +29,7 @@ h1{
 }
 
 .jumbotron{
+	text-align: center;
 	max-width: 500px;
 	height: 400px;
 	margin: 20px auto;

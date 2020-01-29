@@ -41,7 +41,6 @@ public class ProjectController {
 	//method to process registration request
 	   public ModelAndView signUp(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
 		  
-		Map<String,Object> model = new HashMap<String,Object>();
 		factory = Persistence.createEntityManagerFactory("SoftwareDevelopmentProject");
 	    em = factory.createEntityManager();
 	    em.getTransaction().begin(); 
@@ -51,20 +50,13 @@ public class ProjectController {
 	      professor.setEmailId(request.getParameter("emailId"));
 	      professor.setPassword(request.getParameter("password"));
 	      professor.setPhone(request.getParameter("phone"));
-	        
 		    em.persist(professor);
-		    
-		    Query query = em.createQuery("select s from Student s");
-		    List<Student> studentList = query.getResultList();
 		    em.getTransaction().commit();		   
 		    em.close();
 		    
 		    addSession(professor,session);
-		    
-		    
-		    model.put("professor", professor);
-		    model.put("students", studentList);
-		    return new ModelAndView("classlist", "model", model);
+		
+		    return new ModelAndView("classlist", "professor", professor);
 	}
 	
 	//mapping with login.jsp,index.jsp
@@ -72,24 +64,17 @@ public class ProjectController {
 	//method to process registration request
 	   public ModelAndView login(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
 		  
-		Map<String,Object> model = new HashMap<String,Object>();
 		factory = Persistence.createEntityManagerFactory("SoftwareDevelopmentProject");
 	    em = factory.createEntityManager();
 	    em.getTransaction().begin(); 
 	      
 	      Query query = em.createQuery("select p from Professor p where p.emailId = '" + request.getParameter("userName")+"'");
 	      Professor professor = (Professor) query.getSingleResult();
-	      
-	      query = em.createQuery("select s from Student s");
-	      List<Student> studentList = query.getResultList();
 		    em.getTransaction().commit();
-		    
 		    em.close();
 		    if(professor.getPassword().equals(request.getParameter("password"))) {
 			    addSession(professor,session);
-			    model.put("professor", professor);
-			    model.put("students", studentList);
-			    return new ModelAndView("classlist", "model", model);
+			    return new ModelAndView("classlist", "professor", professor);
 		    }else {
 		    	return new ModelAndView("login");
 		    }
@@ -100,27 +85,16 @@ public class ProjectController {
 	//method to process registration request
 	   public ModelAndView classlist(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
 		
-			Map<String,Object> model = new HashMap<String,Object>();
 			factory = Persistence.createEntityManagerFactory("SoftwareDevelopmentProject");
 			em = factory.createEntityManager();
 			em.getTransaction().begin(); 
 	      
 			Query query = em.createQuery("select p from Professor p where p.emailId = '" + session.getValue("professorId") +"'");
 			Professor professor = (Professor) query.getSingleResult();
-	      
-			em.getTransaction().commit();  
-			em.close();
-		
-			em = factory.createEntityManager();
-			em.getTransaction().begin(); 
-			query = em.createQuery("select s from Student s");
-			List<Student> studentList = query.getResultList();
-			em.getTransaction().commit();  
-			em.close(); 
+		    em.getTransaction().commit();
+		    em.close();
 		    
-			model.put("professor", professor);
-			model.put("students", studentList);
-			return new ModelAndView("classlist", "model", model);
+			return new ModelAndView("classlist", "professor", professor);
 	}
 	
 	@RequestMapping("/Update")

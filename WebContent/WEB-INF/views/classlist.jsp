@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="java.sql.*"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
@@ -27,7 +27,7 @@ h1{
 .jumbotron{
 	text-align: center;
 	max-width: 750px;
-	height: 350px;
+	height: 400px;
 	margin: 20px auto;
 	padding: 20px;
 }
@@ -38,7 +38,7 @@ h1{
 <body>
 	
 	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  		<a class="navbar-brand" href="#">${model.professor.getFirstName()} ${model.professor.getLastName()}</a>
+  		<a class="navbar-brand" href="#">${professor.getFirstName()} ${professor.getLastName()}</a>
   		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
     		<span class="navbar-toggler-icon"></span>
   		</button>
@@ -75,18 +75,33 @@ h1{
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${model.students}" var="student">
+				<%  
+					Class.forName("com.mysql.jdbc.Driver");
+					Connection cn=DriverManager.getConnection("jdbc:mysql://localhost:3306/softwaredevelopment?serverTimezone=EST5EDT","root","password");
+					Statement st=cn.createStatement();
+					ResultSet rs=st.executeQuery("select * from student");
+					while(rs.next())
+					{
+				%>
+
 					<tr class="table-secondary">
-						<th scope="col">${student.getStudentId()}</th>
-						<th scope="col">${student.getFirstName()}</th>
-						<th scope="col">${student.getLastName()}</th>
-						<th scope="col">${student.getPresence()}</th>
-						<th scope="col">${student.getEmailId()}</th>
-						<th scope="col">${student.getPhone()}</th>												
+						<th scope="col"><%out.println(rs.getString("studentId")); %></th>
+						<th scope="col"><%out.println(rs.getString("firstName")); %></th>
+						<th scope="col"><%out.println(rs.getString("lastName")); %></th>
+						<th scope="col"><%out.println(rs.getString("presence")); %></th>
+						<th scope="col"><%out.println(rs.getString("emailId")); %></th>
+						<th scope="col"><%out.println(rs.getString("phone")); %></th>												
 					</tr>
-				</c:forEach>
+						
+	 	<%
+			}
+		%>
 			</tbody>
 		</table>
+		<br>
+		<form action="classlist" method="post">
+			<input type="submit" class="btn btn-primary btn-lg" value="Refresh">
+		</form>
 	</div>
 </body>
 </html>
