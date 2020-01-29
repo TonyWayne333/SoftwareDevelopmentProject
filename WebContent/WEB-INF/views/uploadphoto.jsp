@@ -70,7 +70,7 @@ h1{
 				<input type="file" name="file" required/>
 	    	</div>
 	    </fieldset>
-	    	<input type="submit" class="btn btn-primary" value="Upload" />
+	    	<input type="submit" class="btn btn-primary" value="Upload" style="width: 120px;"/>
 	    </form>
     </div>
 </body>

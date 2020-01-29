@@ -62,7 +62,7 @@ h1{
 				<input type="tel" name="phone" class="form-control" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Phone Number (e.g.123-456-7890)" required/>
 	    	</div>
 	    </fieldset>
-	    	<input type="submit" class="btn btn-primary" value="SignUp" />
+	    	<input type="submit" class="btn btn-primary" value="SignUp" style="width: 320px; margin: 0 auto;"/>
 	    
 	    <p>Already have an account? <a href="${contextPath}/professor">Log In</a> here.</p>
 	    </form>

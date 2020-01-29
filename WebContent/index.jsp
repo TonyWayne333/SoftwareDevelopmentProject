@@ -38,11 +38,11 @@ h1{
   <p class="lead">Please select your role:</p>
 	
 	<form action="student">
-		<input type="submit" class="btn btn-primary btn-lg" value="Student">
+		<input type="submit" class="btn btn-primary btn-lg" value="Student" style="width: 120px;">
 	</form>
 	<br/><br/>
 	<form action="professor">
-		<input type="submit" class="btn btn-primary btn-lg" value="Professor">
+		<input type="submit" class="btn btn-primary btn-lg" value="Professor" style="width: 120px;">
 	</form>
 </div>
 </body>

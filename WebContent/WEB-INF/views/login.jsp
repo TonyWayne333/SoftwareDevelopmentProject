@@ -33,6 +33,7 @@ h1{
 	margin: 20px auto;
 	padding: 20px;
 }
+
 </style>
 
 </head>
@@ -51,7 +52,7 @@ h1{
 		      		<input type="password" class="form-control" name="password" placeholder="Enter Password" required>
 		    	</div>
 		    </fieldset>
-		    	<button type="submit" class="btn btn-primary">Login</button>  
+		    	<button type="submit" class="btn btn-primary" style="width: 320px; margin: 0 auto;">Login</button>  
 		    
 		    <p>Don't have an account? <a href="${contextPath}/newProfessor">Sign up</a> here.</p>
 		</form>

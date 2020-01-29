@@ -90,8 +90,8 @@ h1{
 				<input type="tel" name="phone" class="form-control" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value="${professor.getPhone() }" required/>
 	    	</div>
 	    </fieldset>
-	    	<input type="submit" class="btn btn-primary" value="Save Changes" />
-	    	<input type="reset" class="btn btn-primary" value="Clear"/>
+	    	<input type="submit" class="btn btn-primary" value="Save Changes" style="width: 120px;"/>
+	    	<input type="reset" class="btn btn-primary" value="Clear" style="width: 120px;"/>
 		</form>
 	</div>
 </body>

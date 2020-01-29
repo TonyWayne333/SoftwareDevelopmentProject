@@ -64,7 +64,7 @@ h1{
 				<input type="file"  name="file" required/>
 	    	</div>
 	    </fieldset>
-	    	<input type="submit" style="align: center" class="btn btn-primary" value="Register" />
+	    	<input type="submit" class="btn btn-primary" value="Register" style="width: 340px; margin: 0 auto;"/>
 	    </form>
 	</div>
 </body>
