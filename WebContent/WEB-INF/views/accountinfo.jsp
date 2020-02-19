@@ -71,7 +71,7 @@ h1{
 		<fieldset>
 			<div class="form-group">
 	      		<label for="firstName">Email ID</label>
-	      		<input type="email" class="form-control" name="emailId" value="${professor.getEmailId()}" required>
+	      		<input type="email" class="form-control" name="emailId" value="${professor.getEmailId()}" readonly>
 	    	</div>
 		    <div class="form-group">
 	      		<label for="firstName">First Name</label>
