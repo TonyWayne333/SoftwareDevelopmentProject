@@ -1,5 +1,9 @@
+<%@page import="com.mongodb.MongoClient"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" import="java.sql.*"%>
+<%@ page import="com.development.StudentService" %>
+<%@ page import="com.development.Student" %>
+<%@ page import="java.util.*" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
@@ -76,21 +80,20 @@ h1{
 			</thead>
 			<tbody>
 				<%  
-					Class.forName("com.mysql.jdbc.Driver");
-					Connection cn=DriverManager.getConnection("jdbc:mysql://localhost:3306/softwaredevelopment?serverTimezone=EST5EDT","root","password");
-					Statement st=cn.createStatement();
-					ResultSet rs=st.executeQuery("select * from student");
-					while(rs.next())
+					StudentService studentService = new StudentService();
+					List<Student> students = studentService.getAll();
+					
+					for(Student student : students)
 					{
 				%>
 
 					<tr class="table-secondary">
-						<th scope="col"><%out.println(rs.getString("studentId")); %></th>
-						<th scope="col"><%out.println(rs.getString("firstName")); %></th>
-						<th scope="col"><%out.println(rs.getString("lastName")); %></th>
-						<th scope="col"><%out.println(rs.getString("presence")); %></th>
-						<th scope="col"><%out.println(rs.getString("emailId")); %></th>
-						<th scope="col"><%out.println(rs.getString("phone")); %></th>												
+						<th scope="col"><%out.println(student.getStudentId()); %></th>
+						<th scope="col"><%out.println(student.getFirstName()); %></th>
+						<th scope="col"><%out.println(student.getLastName()); %></th>
+						<th scope="col"><%out.println(student.getPresence()); %></th>
+						<th scope="col"><%out.println(student.getEmailId()); %></th>
+						<th scope="col"><%out.println(student.getPhone()); %></th>												
 					</tr>
 						
 	 	<%

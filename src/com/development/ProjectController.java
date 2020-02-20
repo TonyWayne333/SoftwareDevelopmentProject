@@ -76,7 +76,7 @@ public class ProjectController {
 	//method to process registration request
 	public ModelAndView classlist(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
 		
-		Professor professor = professorService.findUserId(request.getParameter("userName"));
+		Professor professor = professorService.findUserId(session.getValue("professorId").toString());
 		    
 		return new ModelAndView("classlist", "professor", professor);
 	}

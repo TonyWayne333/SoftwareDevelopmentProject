@@ -17,8 +17,8 @@ public class StudentService {
 	static String db_name = "softwaredevelopmentproject", db_collection = "student";
  
     // Fetch all users from the mongo database.
-    public List getAll() {
-        List student_list = new ArrayList();
+    public List<Student> getAll() {
+        List<Student> student_list = new ArrayList<Student>();
         DBCollection coll = MongoFactory.getCollection(db_name, db_collection);
  
         // Fetching cursor object for iterating on the database records.
