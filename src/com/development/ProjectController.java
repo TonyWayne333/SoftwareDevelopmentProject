@@ -36,6 +36,7 @@ public class ProjectController {
 	
 	@Resource(name="professorService")
 	private ProfessorService professorService;
+		
 	//mapping with signup.jsp
 	@RequestMapping("/signUp")
 	//method to process registration request
@@ -65,7 +66,7 @@ public class ProjectController {
 	}
 	
 	@RequestMapping("/login")
-	 public ModelAndView login(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
+	public ModelAndView login(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
 		  
 //		factory = Persistence.createEntityManagerFactory("SoftwareDevelopmentProject");
 //	    em = factory.createEntityManager();
@@ -141,9 +142,9 @@ public class ProjectController {
 			   @RequestParam String firstName,@RequestParam String lastName,@RequestParam String emailId,@RequestParam String phone,HttpSession session) throws IOException {
 		  
 		
-			factory = Persistence.createEntityManagerFactory("SoftwareDevelopmentProject");
-			em = factory.createEntityManager();
-			em.getTransaction().begin(); 
+//			factory = Persistence.createEntityManagerFactory("SoftwareDevelopmentProject");
+//			em = factory.createEntityManager();
+//			em.getTransaction().begin(); 
 	      
 			Student student = new Student();
 			student.setStudentId(studentId);
@@ -170,7 +171,7 @@ public class ProjectController {
 			    String accessKeyId = "YOUR_ACCESS_KEY";
 			    String secretAccessKey =  "YOUR_SECRET_KEY";
 			    String region = "us-east-2";
-			    String bucketName = "neelbucket3";
+			    String bucketName = "neelbucket1";
 			    
 			    //AWS Access Key ID and Secret Access Key
 			    BasicAWSCredentials awsCreds = new BasicAWSCredentials(accessKeyId, secretAccessKey);
@@ -195,9 +196,9 @@ public class ProjectController {
 			    	
 			}
 	     
-		    em.persist(student);
-		    em.getTransaction().commit();		   
-		    em.close();	 
+//		    em.persist(student);
+//		    em.getTransaction().commit();		   
+//		    em.close();	 
 		    
 		    return new ModelAndView("login"); 
 	}
@@ -218,7 +219,7 @@ public class ProjectController {
 			String accessKeyId = "YOUR_ACCESS_KEY";
 			String secretAccessKey =  "YOUR_SECRET_KEY";
 			String region = "us-east-2";
-			String bucketName = "neelbucket4";
+			String bucketName = "neelbucket2";
 			    
 			//AWS Access Key ID and Secret Access Key
 			BasicAWSCredentials awsCreds = new BasicAWSCredentials(accessKeyId, secretAccessKey);

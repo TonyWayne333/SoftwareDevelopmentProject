@@ -1,42 +1,16 @@
 package com.development;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 @Service("professorService")
 @Transactional
 public class ProfessorService {
 	static String db_name = "softwaredevelopmentproject", db_collection = "professor";
-    
-    // Fetch all users from the mongo database.
-    public List getAll() {
-        List professor_list = new ArrayList();
-        DBCollection coll = MongoFactory.getCollection(db_name, db_collection);
- 
-        // Fetching cursor object for iterating on the database records.
-        DBCursor cursor = coll.find();  
-        while(cursor.hasNext()) {           
-            DBObject dbObject = cursor.next();
- 
-            Professor professor = new Professor();
-            professor.setEmailId(dbObject.get("emailId").toString());
-            professor.setFirstName(dbObject.get("firstName").toString());
-            professor.setLastName(dbObject.get("lastName").toString());
-            professor.setPassword(dbObject.get("password").toString());
-            professor.setPhone(dbObject.get("phone").toString());
-            // Adding the user details to the list.
-            professor_list.add(professor);
-        }
-        return professor_list;
-    }
  
     // Add a new user to the mongo database.
     public Boolean add(Professor professor) {
