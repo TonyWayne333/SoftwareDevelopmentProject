@@ -31,20 +31,17 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 
 @Controller
 public class ProjectController {
-	private static EntityManagerFactory factory;
-	private static EntityManager em;
 	
 	@Resource(name="professorService")
 	private ProfessorService professorService;
+	
+	@Resource(name="studentService")
+	private StudentService studentService;
 		
 	//mapping with signup.jsp
 	@RequestMapping("/signUp")
 	//method to process registration request
 	public ModelAndView signUp(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
-		  
-//		factory = Persistence.createEntityManagerFactory("SoftwareDevelopmentProject");
-//		em = factory.createEntityManager();
-//	    em.getTransaction().begin(); 
 	    
 	    Professor professor = new Professor();
 	    professor.setFirstName(request.getParameter("firstName"));
@@ -52,10 +49,6 @@ public class ProjectController {
 	    professor.setEmailId(request.getParameter("emailId"));
 	    professor.setPassword(request.getParameter("password"));
 	    professor.setPhone(request.getParameter("phone"));
-		
-//	    em.persist(professor);
-//		em.getTransaction().commit();		   
-//		em.close();
 		    
 		addSession(professor,session);
 		
@@ -67,15 +60,7 @@ public class ProjectController {
 	
 	@RequestMapping("/login")
 	public ModelAndView login(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
-		  
-//		factory = Persistence.createEntityManagerFactory("SoftwareDevelopmentProject");
-//	    em = factory.createEntityManager();
-//	    em.getTransaction().begin(); 
-//	      
-//	      Query query = em.createQuery("select p from Professor p where p.emailId = '" + request.getParameter("userName")+"'");
-//	      Professor professor = (Professor) query.getSingleResult();
-//		    em.getTransaction().commit();
-//		    em.close();
+
 		Professor professor = professorService.findUserId(request.getParameter("userName"));
 		    
 		if(professor.getPassword().equals(request.getParameter("password"))) {
@@ -91,16 +76,7 @@ public class ProjectController {
 	//method to process registration request
 	public ModelAndView classlist(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
 		
-//		factory = Persistence.createEntityManagerFactory("SoftwareDevelopmentProject");
-//		em = factory.createEntityManager();
-//		em.getTransaction().begin(); 
-	      
-//		Query query = em.createQuery("select p from Professor p where p.emailId = '" + session.getValue("professorId") +"'");
-		
 		Professor professor = professorService.findUserId(request.getParameter("userName"));
-		
-//		em.getTransaction().commit();
-//		em.close();
 		    
 		return new ModelAndView("classlist", "professor", professor);
 	}
@@ -114,11 +90,6 @@ public class ProjectController {
 			return new ModelAndView("login");
 		}
 		
-//		factory = Persistence.createEntityManagerFactory("SoftwareDevelopmentProject");
-//	    em = factory.createEntityManager();
-//	    em.getTransaction().begin(); 
-
-//		Professor professor = em.find(Professor.class, session.getAttribute("professorId").toString());
 		Professor professor = new Professor();
 		professor.setEmailId(session.getAttribute("professorId").toString());
 		professor.setFirstName(request.getParameter("firstName"));
@@ -130,77 +101,70 @@ public class ProjectController {
 		if(professorService.edit(professor)) {
 			System.out.print("Edited Successfully");
 		}
-//		em.persist(professor);
-//		em.getTransaction().commit();
-//		em.close();
+		
 	    return new ModelAndView("accountinfo","professor",professor); 
 	}
 	
 	@RequestMapping("/register")
 	//method to process registration request
-	   public ModelAndView register(@RequestParam CommonsMultipartFile file,@RequestParam String studentId,
+	public ModelAndView register(@RequestParam CommonsMultipartFile file,@RequestParam String studentId,
 			   @RequestParam String firstName,@RequestParam String lastName,@RequestParam String emailId,@RequestParam String phone,HttpSession session) throws IOException {
-		  
-		
-//			factory = Persistence.createEntityManagerFactory("SoftwareDevelopmentProject");
-//			em = factory.createEntityManager();
-//			em.getTransaction().begin(); 
+	
+		Student student = new Student();
+		student.setStudentId(studentId);
+		student.setFirstName(firstName);
+		student.setLastName(lastName);
+		student.setEmailId(emailId);
+		student.setPhone(phone);
+		//student.setPresence("false");
 	      
-			Student student = new Student();
-			student.setStudentId(studentId);
-			student.setFirstName(firstName);
-			student.setLastName(lastName);
-			student.setEmailId(emailId);
-			student.setPhone(phone);
-			//student.setPresence("false");
-	      
-			ServletContext context = session.getServletContext();  
-			final String UPLOAD_DIRECTORY ="/images";  
-			String path = context.getRealPath(UPLOAD_DIRECTORY);  
-			String filename = file.getOriginalFilename();  
+		ServletContext context = session.getServletContext();  
+		final String UPLOAD_DIRECTORY ="/images";  
+		String path = context.getRealPath(UPLOAD_DIRECTORY);  
+		String filename = file.getOriginalFilename();  
 	    
-			System.out.println(path+" "+filename);        
+		System.out.println(path+" "+filename);        
 	    
-			byte[] bytes = file.getBytes();  
-			System.out.println("bytes.size="+ bytes.length);
+		byte[] bytes = file.getBytes();  
+		System.out.println("bytes.size="+ bytes.length);
 			
-			if(filename.endsWith(".jpg") || filename.endsWith(".png") || filename.endsWith(".JPG") || filename.endsWith(".PNG")){
-				filename = studentId + filename.substring(filename.length() - 4);			
-			    student.setImageName(filename);
-			    System.out.println("File Name: " + filename);
-			    String accessKeyId = "YOUR_ACCESS_KEY";
-			    String secretAccessKey =  "YOUR_SECRET_KEY";
-			    String region = "us-east-2";
-			    String bucketName = "neelbucket1";
+		if(filename.endsWith(".jpg") || filename.endsWith(".png") || filename.endsWith(".JPG") || filename.endsWith(".PNG")){
+			filename = studentId + filename.substring(filename.length() - 4);			
+		    student.setImageName(filename);
+		    System.out.println("File Name: " + filename);
+			String accessKeyId = "YOUR_ACCESS_KEY";
+			String secretAccessKey =  "YOUR_SECRET_KEY";
+			String region = "us-east-2";
+			String bucketName = "neelbucket1";
 			    
-			    //AWS Access Key ID and Secret Access Key
-			    BasicAWSCredentials awsCreds = new BasicAWSCredentials(accessKeyId, secretAccessKey);
-			   
-			    //This class connects to AWS S3 for us
-			    AmazonS3 s3client = AmazonS3ClientBuilder.standard().withRegion(region)
-			    		.withCredentials(new AWSStaticCredentialsProvider(awsCreds)).build();
+			//AWS Access Key ID and Secret Access Key
+			BasicAWSCredentials awsCreds = new BasicAWSCredentials(accessKeyId, secretAccessKey);
+			 
+			//This class connects to AWS S3 for us
+			AmazonS3 s3client = AmazonS3ClientBuilder.standard().withRegion(region)
+			 		.withCredentials(new AWSStaticCredentialsProvider(awsCreds)).build();
 			    
-			    //Specify the file's size
-			    ObjectMetadata metadata = new ObjectMetadata();
-			    metadata.setContentLength(bytes.length);
+			//Specify the file's size
+			ObjectMetadata metadata = new ObjectMetadata();
+			metadata.setContentLength(bytes.length);
 
-			    InputStream targetStream = new ByteArrayInputStream(bytes);
-			    //Create the upload request, giving it a bucket name, subdirectory, filename, input stream, and metadata
-			    PutObjectRequest uploadRequest = new PutObjectRequest(bucketName, filename, targetStream, metadata);
-			    //Make it public so we can use it as a public URL on the internet
-			    uploadRequest.setCannedAcl(CannedAccessControlList.PublicRead);
+			InputStream targetStream = new ByteArrayInputStream(bytes);
+			//Create the upload request, giving it a bucket name, subdirectory, filename, input stream, and metadata
+			PutObjectRequest uploadRequest = new PutObjectRequest(bucketName, filename, targetStream, metadata);
+			//Make it public so we can use it as a public URL on the internet
+			uploadRequest.setCannedAcl(CannedAccessControlList.PublicRead);
 			    
-			    //Upload the file. This can take a while for big files!
-			    s3client.putObject(uploadRequest);
-			    System.out.println("Photo uploaded");
-			    	
-			}
-	     
-//		    em.persist(student);
-//		    em.getTransaction().commit();		   
-//		    em.close();	 
+			//Upload the file. This can take a while for big files!
+			s3client.putObject(uploadRequest);
+			  
+			System.out.println("Photo uploaded");
+			   	
+		}
 		    
-		    return new ModelAndView("login"); 
+		if(studentService.add(student)) {
+			System.out.println("Student Added");
+		}
+		return new ModelAndView("login"); 
 	}
 	
 	@RequestMapping("/photoupload")
@@ -274,17 +238,12 @@ public class ProjectController {
 	public ModelAndView newProfessor(HttpServletRequest request) {
 		return new ModelAndView("signup");
 	}
+	
 	@RequestMapping("/uploadphoto")
 	public ModelAndView uploadPhoto(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
 		if(session.getValue("professorId").equals(null)) {
 			return new ModelAndView("login");
 		}
-//		factory = Persistence.createEntityManagerFactory("SoftwareDevelopmentProject");
-//	    em = factory.createEntityManager();
-//	    em.getTransaction().begin(); 
-
-//		Professor professor = em.find(Professor.class, session.getAttribute("professorId").toString());		        
-//		em.close();
 		
 		Professor professor = professorService.findUserId(session.getAttribute("professorId").toString());
 	    return new ModelAndView("uploadphoto","professor",professor); 
@@ -295,12 +254,6 @@ public class ProjectController {
 		if(session.getValue("professorId").equals(null)) {
 			return new ModelAndView("login");
 		}
-//		factory = Persistence.createEntityManagerFactory("SoftwareDevelopmentProject");
-//	    em = factory.createEntityManager();
-//	    em.getTransaction().begin(); 
-//
-//		Professor professor = em.find(Professor.class, session.getAttribute("professorId").toString());		        
-//		em.close();
 		
 		Professor professor = professorService.findUserId(session.getAttribute("professorId").toString());
 	    return new ModelAndView("accountinfo","professor",professor); 
