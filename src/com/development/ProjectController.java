@@ -4,11 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
+import javax.annotation.Resource;	
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -163,8 +159,11 @@ public class ProjectController {
 		    
 		if(studentService.add(student)) {
 			System.out.println("Student Added");
+			return new ModelAndView("student", "success", true); 
+		}else {
+			return new ModelAndView("student", "success", false); 
 		}
-		return new ModelAndView("login"); 
+		
 	}
 	
 	@RequestMapping("/photoupload")
@@ -225,7 +224,7 @@ public class ProjectController {
 	
 	@RequestMapping("/student")
 	public ModelAndView student(HttpServletRequest request,HttpServletResponse response) {
-		return new ModelAndView("student");
+		return new ModelAndView("student","first",true);
 	}
 	
 	@RequestMapping("/professor")

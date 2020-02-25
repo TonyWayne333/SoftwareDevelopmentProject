@@ -46,25 +46,44 @@ public class StudentService {
         boolean output = false;
         try {           
             DBCollection coll = MongoFactory.getCollection(db_name, db_collection);
- 
-            // Create a new object and add the new user details to this object.
-            BasicDBObject doc = new BasicDBObject();
-            doc.put("studentId", student.getStudentId()); 
-            doc.put("firstName", student.getFirstName());   
-            doc.put("lastName", student.getLastName());
-            doc.put("presence", student.getPresence());
-            doc.put("imageName", student.getImageName());
-            doc.put("emailId", student.getEmailId());
-            doc.put("phone", student.getPhone());
- 
-            // Save a new user to the mongo collection.
-            coll.insert(doc);
-            output = true;
+            System.out.println("Inside student add");
+            if(findUserId(student.getStudentId())) {
+                // Create a new object and add the new user details to this object.
+                BasicDBObject doc = new BasicDBObject();
+                doc.put("studentId", student.getStudentId()); 
+                doc.put("firstName", student.getFirstName());   
+                doc.put("lastName", student.getLastName());
+                doc.put("presence", student.getPresence());
+                doc.put("imageName", student.getImageName());
+                doc.put("emailId", student.getEmailId());
+                doc.put("phone", student.getPhone());
+     
+                // Save a new user to the mongo collection.
+                coll.insert(doc);
+                output = true;
+            }
+
         } catch (Exception e) {
             output = false;
             System.out.println("An error occurred while saving a new user to the mongo database: " + e);            
         }
         return output;
+    }
+    public static boolean findUserId(String id) {
+        DBCollection coll = MongoFactory.getCollection(db_name, db_collection);
+ 
+        // Fetching the record object from the mongo database.
+        DBObject where_query = new BasicDBObject();
+        where_query.put("studentId", id);
+ 
+        DBObject dbo = coll.findOne(where_query);   
+        System.out.println("Inside student search: ");
+        
+        if(dbo == null) {
+        	return true;
+        }else {
+        	return false;
+        }
     }
 
 }

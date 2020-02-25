@@ -28,7 +28,6 @@ h1{
 
 .jumbotron{
 	max-width: 400px;
-	height: 640px;
 	margin: 20px auto;
 	padding: 20px;
 }
@@ -59,7 +58,7 @@ h1{
 	    	</div>
 	    	<div class="form-group">
 	      		<label for="address">Phone</label>
-				<input type="tel" name="phone" class="form-control" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Phone Number (e.g.123-456-7890)" required/>
+				<input type="tel" name="phone" class="form-control" pattern="[0-9]{10}" placeholder="Phone Number (e.g.1234567890)" required/>
 	    	</div>
 	    </fieldset>
 	    	<input type="submit" class="btn btn-primary" value="SignUp" style="width: 320px; margin: 0 auto;"/>

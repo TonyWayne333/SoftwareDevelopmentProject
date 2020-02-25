@@ -21,8 +21,9 @@ public class MongoFactory {
         	
             try {
             	System.out.println("Inside getMongo");
-                mongo = new MongoClient(new MongoClientURI("mongodb://admin:adminpassword@neelmongoserver-shard-00-00-kwu6r.mongodb.net:27017,neelmongoserver-shard-00-01-kwu6r.mongodb.net:27017,neelmongoserver-shard-00-02-kwu6r.mongodb.net:27017/test?ssl=true&replicaSet=NeelMongoServer-shard-0&authSource=admin&retryWrites=true&w=majority"));  
-                System.out.println("Database connected");
+                //mongo = new MongoClient(new MongoClientURI("mongodb://admin:adminpassword@neelmongoserver-shard-00-00-kwu6r.mongodb.net:27017,neelmongoserver-shard-00-01-kwu6r.mongodb.net:27017,neelmongoserver-shard-00-02-kwu6r.mongodb.net:27017/test?ssl=true&replicaSet=NeelMongoServer-shard-0&authSource=admin&retryWrites=true&w=majority"));  
+                mongo = new MongoClient();
+            	System.out.println("Database connected");
             } catch (MongoException ex) {
             	System.out.println("Inside Exception");
                 System.out.println(ex);

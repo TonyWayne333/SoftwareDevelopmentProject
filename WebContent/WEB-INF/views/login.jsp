@@ -29,7 +29,6 @@ h1{
 
 .jumbotron{
 	max-width: 400px;
-	height: 430px;
 	margin: 20px auto;
 	padding: 20px;
 }

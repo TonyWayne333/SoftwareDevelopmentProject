@@ -26,16 +26,40 @@ h1{
 }
 .jumbotron{
 	max-width: 420px;
-	height: 690px;
 	margin: 20px auto;
 	padding: 20px;
 }
 </style>
+
+<script type="text/javascript">
+	function removeDiv(){
+		var x = document.getElementById("alertSection");
+		x.style.display = "none";
+		
+	}
+</script>
 <title>Registration Page</title>
 
 </head>
 <body>
 	<div class="jumbotron">
+		<div id="alertSection">
+			<c:if test="${!first}">
+				<c:if test="${success}">
+					<div class="alert alert-dismissible alert-success">
+		  				<button type="button" class="close" data-dismiss="alert" onClick="removeDiv()">&times;</button>
+		  				<strong>Well done!</strong> You are successfully registered.
+					</div>
+				</c:if>
+			
+				<c:if test="${!success}">
+					<div class="alert alert-dismissible alert-danger">
+					  <button type="button" class="close" data-dismiss="alert" onClick="removeDiv()">&times;</button>
+					  <strong>Oh snap!</strong>You are already registered.
+					</div>
+				</c:if>
+			</c:if>
+		</div>
 		<form action="register" method="post" enctype="multipart/form-data">  
 		<h1 align="center">Registration</h1>
 		<fieldset>
@@ -57,7 +81,7 @@ h1{
 	    	</div>
 	    	<div class="form-group">
 	      		<label for="phone">Phone</label>
-				<input type="tel" name="phone" class="form-control" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Phone Number (e.g.123-456-7890)" required/>
+				<input type="tel" name="phone" class="form-control" pattern="[0-9]{10}" placeholder="Phone Number (e.g.1234567890)" required/>
 	    	</div>
 	    	<div class="form-group">
 	      		<label for="photo" >Upload Your Photo</label>
