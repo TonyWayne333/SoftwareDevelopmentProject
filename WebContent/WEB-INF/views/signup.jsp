@@ -32,11 +32,28 @@ h1{
 	padding: 20px;
 }
 </style>
+<script type="text/javascript">
+	function removeDiv(){
+		var x = document.getElementById("alertSection");
+		x.style.display = "none";
+		
+	}
+</script>
 <title>Sign Up Page</title>
 
 </head>
 <body>
 	<div class="jumbotron">
+		<div id="alertSection">
+			<c:if test="${!first}">	
+				<c:if test="${!success}">
+					<div class="alert alert-dismissible alert-danger">
+					  <button type="button" class="close" data-dismiss="alert" onClick="removeDiv()">&times;</button>
+					  <strong>Oh snap!</strong>You are already registered.
+					</div>
+				</c:if>
+			</c:if>
+		</div>
 		<form action="signUp" method="post">  
 		<h1 align="center">Sign Up</h1>
 		<fieldset>

@@ -18,17 +18,20 @@ public class ProfessorService {
         try {           
             DBCollection coll = MongoFactory.getCollection(db_name, db_collection);
  
-            // Create a new object and add the new user details to this object.
-            BasicDBObject doc = new BasicDBObject();
-            doc.put("emailId", professor.getEmailId()); 
-            doc.put("firstName", professor.getFirstName());   
-            doc.put("lastName", professor.getLastName());   
-            doc.put("password", professor.getPassword());   
-            doc.put("phone", professor.getPhone());   
- 
-            // Save a new user to the mongo collection.
-            coll.insert(doc);
-            output = true;
+            if(findUserById(professor.getEmailId())) {
+                // Create a new object and add the new user details to this object.
+                BasicDBObject doc = new BasicDBObject();
+                doc.put("emailId", professor.getEmailId()); 
+                doc.put("firstName", professor.getFirstName());   
+                doc.put("lastName", professor.getLastName());   
+                doc.put("password", professor.getPassword());   
+                doc.put("phone", professor.getPhone());   
+     
+                // Save a new user to the mongo collection.
+                coll.insert(doc);
+                output = true;
+            }
+
         } catch (Exception e) {
             output = false;
         }
@@ -91,5 +94,22 @@ public class ProfessorService {
  
         // Return user object.
         return p;
+    }
+    
+    public boolean findUserById(String id) {
+        DBCollection coll = MongoFactory.getCollection(db_name, db_collection);
+        
+        // Fetching the record object from the mongo database.
+        DBObject where_query = new BasicDBObject();
+        where_query.put("emailId", id);
+ 
+        DBObject dbo = coll.findOne(where_query);   
+        System.out.println("Inside professor search: ");
+        
+        if(dbo == null) {
+        	return true;
+        }else {
+        	return false;
+        }
     }
 }

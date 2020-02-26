@@ -35,9 +35,27 @@ h1{
 
 </style>
 
+<script type="text/javascript">
+	function removeDiv(){
+		var x = document.getElementById("alertSection");
+		x.style.display = "none";
+		
+	}
+</script>
+
 </head>
 <body>
 	<div class="jumbotron">	
+		<div id="alertSection">
+			<c:if test="${!model.first}">	
+				<c:if test="${!model.success}">
+					<div class="alert alert-dismissible alert-danger">
+					  <button type="button" class="close" data-dismiss="alert" onClick="removeDiv()">&times;</button>
+					  <strong>Oops!</strong> ${model.message}
+					</div>
+				</c:if>
+			</c:if>
+		</div>
 		<form action="login" method="post">  
 			<h1 align="center">Login</h1>
 			<fieldset>

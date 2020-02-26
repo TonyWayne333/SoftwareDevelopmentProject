@@ -48,7 +48,7 @@ h1{
 				<c:if test="${success}">
 					<div class="alert alert-dismissible alert-success">
 		  				<button type="button" class="close" data-dismiss="alert" onClick="removeDiv()">&times;</button>
-		  				<strong>Well done!</strong> You are successfully registered.
+		  				<strong>Thank You!</strong> You are successfully registered.
 					</div>
 				</c:if>
 			

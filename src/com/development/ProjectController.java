@@ -3,6 +3,8 @@ package com.development;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.Resource;	
 import javax.servlet.ServletContext;
@@ -34,6 +36,8 @@ public class ProjectController {
 	@Resource(name="studentService")
 	private StudentService studentService;
 		
+	Map<String,Object> model = new HashMap<String,Object>();
+	
 	//mapping with signup.jsp
 	@RequestMapping("/signUp")
 	//method to process registration request
@@ -50,22 +54,34 @@ public class ProjectController {
 		
 		if(professorService.add(professor)) {
 			System.out.println("Success");
+			return new ModelAndView("classlist", "professor", professor);
+		}else {
+			return new ModelAndView("signup", "success", false);
 		}
-		return new ModelAndView("classlist", "professor", professor);
+		
 	}
 	
 	@RequestMapping("/login")
 	public ModelAndView login(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
 
-		Professor professor = professorService.findUserId(request.getParameter("userName"));
-		    
-		if(professor.getPassword().equals(request.getParameter("password"))) {
-			addSession(professor,session);
-			return new ModelAndView("classlist", "professor", professor);
+		if(professorService.findUserById(request.getParameter("userName"))) {
+			model.put("first", false);
+			model.put("success", false);
+			model.put("message", "Email ID is not registered");
+			return new ModelAndView("login", "model", model);
 		}else {
-			return new ModelAndView("login");
-		}
-	       
+			Professor professor = professorService.findUserId(request.getParameter("userName"));
+		    
+			if(professor.getPassword().equals(request.getParameter("password"))) {
+				addSession(professor,session);
+				return new ModelAndView("classlist", "professor", professor);
+			}else {
+				model.put("first", false);
+				model.put("success", false);
+				model.put("message", "Password is wrong");
+				return new ModelAndView("login", "model", model);
+			}
+		}	       
 	}
 	
 	@RequestMapping("/classlist")
@@ -158,7 +174,7 @@ public class ProjectController {
 		}
 		    
 		if(studentService.add(student)) {
-			System.out.println("Student Added");
+			//System.out.println("Student Added");
 			return new ModelAndView("student", "success", true); 
 		}else {
 			return new ModelAndView("student", "success", false); 
@@ -229,13 +245,14 @@ public class ProjectController {
 	
 	@RequestMapping("/professor")
 	public ModelAndView professor(HttpServletRequest request,HttpServletResponse response) {
-		return new ModelAndView("login");
+		model.put("first", true);
+		return new ModelAndView("login","model",model);
 	}
 	
 	
 	@RequestMapping("/newProfessor")
 	public ModelAndView newProfessor(HttpServletRequest request) {
-		return new ModelAndView("signup");
+		return new ModelAndView("signup","first",true);
 	}
 	
 	@RequestMapping("/uploadphoto")

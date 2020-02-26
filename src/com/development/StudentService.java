@@ -69,7 +69,7 @@ public class StudentService {
         }
         return output;
     }
-    public static boolean findUserId(String id) {
+    public boolean findUserId(String id) {
         DBCollection coll = MongoFactory.getCollection(db_name, db_collection);
  
         // Fetching the record object from the mongo database.
