@@ -41,6 +41,31 @@ public class StudentService {
         return student_list;
     }
  
+    public List<Student> getAllPresent() {
+        List<Student> student_list = new ArrayList<Student>();
+        DBCollection coll = MongoFactory.getCollection(db_name, db_collection);
+ 
+        DBObject where_query = new BasicDBObject();
+        where_query.put("presence", "True");
+        // Fetching cursor object for iterating on the database records.
+        DBCursor cursor = coll.find(where_query);  
+        while(cursor.hasNext()) {           
+            DBObject dbObject = cursor.next();
+ 
+            Student student = new Student();
+            student.setStudentId(dbObject.get("studentId").toString());
+            student.setFirstName(dbObject.get("firstName").toString());
+            student.setLastName(dbObject.get("lastName").toString());
+            student.setPresence(dbObject.get("presence").toString());
+            student.setImageName(dbObject.get("imageName").toString());
+            student.setEmailId(dbObject.get("emailId").toString());
+            student.setPhone(dbObject.get("phone").toString());
+ 
+            // Adding the user details to the list.
+            student_list.add(student);
+        }
+        return student_list;
+    }
     // Add a new user to the mongo database.
     public Boolean add(Student student) {
         boolean output = false;

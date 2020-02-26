@@ -221,14 +221,14 @@ public class ProjectController {
 			s3client.putObject(uploadRequest);
 			System.out.println("Photo uploaded");
 			   
-			redirectView.setUrl("http://127.0.0.1:5000/image_recognition/");
-			return redirectView;
+
 			    	
 		}
-	      
-		//return new ModelAndView("uploadphoto"); 
-		redirectView.setUrl("http://127.0.0.1:9090/");
+		redirectView.setUrl("http://127.0.0.1:5000/image_recognition/");
 		return redirectView;
+//		//return new ModelAndView("uploadphoto"); 
+//		redirectView.setUrl("http://127.0.0.1:9090/");
+//		return redirectView;
 	}
 	
 	@RequestMapping("/logout")
