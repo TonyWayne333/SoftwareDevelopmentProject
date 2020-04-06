@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,6 +45,10 @@ h1{
 	<form action="professor">
 		<input type="submit" class="btn btn-primary btn-lg" value="Professor" style="width: 120px;">
 	</form>
+	<br>
+	<a href="${contextPath}/aboutus">About Us</a>
+	<b>|</b>
+	<a href="${contextPath}/contactus">Contact Us</a>
 </div>
 </body>
 </html>

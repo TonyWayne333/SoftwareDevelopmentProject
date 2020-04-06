@@ -272,6 +272,16 @@ public class ProjectController {
 	    return new ModelAndView("accountinfo","professor",professor); 
 	}
 	
+	@RequestMapping("/aboutus")
+	public ModelAndView aboutUs(HttpServletRequest request,HttpServletResponse response) {
+		return new ModelAndView("aboutus");
+	}
+	
+	@RequestMapping("/contactus")
+	public ModelAndView contactUs(HttpServletRequest request,HttpServletResponse response) {
+		return new ModelAndView("contactus");
+	}
+	
 	public void addSession(Professor p, HttpSession session) {
 		session.setAttribute("professorId", p.getEmailId());
 	}
