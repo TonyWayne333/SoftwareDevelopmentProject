@@ -67,7 +67,7 @@ h1{
 		<fieldset>
 	    	<div class="form-group">
 	      		<label for="photo">Upload Class Photo</label>
-				<input type="file" name="file" required/>
+				<input type="file" name="file" accept="image/jpeg" required/>
 	    	</div>
 	    </fieldset>
 	    	<input type="submit" class="btn btn-primary" value="Upload" style="width: 120px;"/>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,6 +43,23 @@ h1{
 
 </head>
 <body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  		<a class="navbar-brand" href="${contextPath}/">Online Attendance System</a>
+  		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+    		<span class="navbar-toggler-icon"></span>
+  		</button>
+
+  		<div class="collapse navbar-collapse" id="navbarColor01">
+    		<ul class="navbar-nav mr-auto">
+      			<li class="nav-item">
+        			<a class="nav-link" href="${contextPath}/professor">Professor</a>
+      			</li>
+      			<li class="nav-item active">
+        			<a class="nav-link" href="#">Student <span class="sr-only">(current)</span></a>
+      			</li>
+    		</ul>
+  		</div>
+	</nav>	
 	<div class="jumbotron">
 		<div id="alertSection">
 			<c:if test="${!first}">
@@ -85,7 +103,7 @@ h1{
 	    	</div>
 	    	<div class="form-group">
 	      		<label for="photo" >Upload Your Photo</label>
-				<input type="file"  name="file" required/>
+				<input type="file"  name="file" accept="image/jpeg, image/png" required/>
 	    	</div>
 	    </fieldset>
 	    	<input type="submit" class="btn btn-primary" value="Register" style="width: 340px; margin: 0 auto;"/>

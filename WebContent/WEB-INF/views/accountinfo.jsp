@@ -87,7 +87,7 @@ h1{
 	    	</div>
 	    	<div class="form-group">
 	      		<label for="address">Phone</label>
-				<input type="tel" name="phone" class="form-control" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value="${professor.getPhone() }" required/>
+				<input type="tel" name="phone" class="form-control" pattern="[0-9]{10}" value="${professor.getPhone() }" required/>
 	    	</div>
 	    </fieldset>
 	    	<input type="submit" class="btn btn-primary" value="Save Changes" style="width: 120px;"/>

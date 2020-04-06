@@ -92,7 +92,14 @@ public class ProjectController {
 		    
 		return new ModelAndView("classlist", "professor", professor);
 	}
-	
+	@RequestMapping("/resetClassList")
+	//method to process registration request
+	public ModelAndView resetClassList(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
+		
+		Professor professor = professorService.findUserId(session.getValue("professorId").toString());
+		
+		return new ModelAndView("classlist", "professor", professor);
+	}
 	@RequestMapping("/Update")
 	
 	//method to process registration request
@@ -140,38 +147,35 @@ public class ProjectController {
 		byte[] bytes = file.getBytes();  
 		System.out.println("bytes.size="+ bytes.length);
 			
-		if(filename.endsWith(".jpg") || filename.endsWith(".png") || filename.endsWith(".JPG") || filename.endsWith(".PNG")){
-			filename = studentId + filename.substring(filename.length() - 4);			
-		    student.setImageName(filename);
-		    System.out.println("File Name: " + filename);
-			String accessKeyId = "YOUR_ACCESS_KEY";
-			String secretAccessKey =  "YOUR_SECRET_KEY";
-			String region = "us-east-2";
-			String bucketName = "neelbucket1";
+		filename = studentId + filename.substring(filename.length() - 4);			
+		student.setImageName(filename);
+		System.out.println("File Name: " + filename);
+	    String accessKeyId = "YOUR_ACCESS_KEY_ID";
+		String secretAccessKey =  "YOUR_SECRET_ACCESS_KEY";
+		String region = "us-east-2";
+		String bucketName = "neelbucket1";
 			    
-			//AWS Access Key ID and Secret Access Key
-			BasicAWSCredentials awsCreds = new BasicAWSCredentials(accessKeyId, secretAccessKey);
+		//AWS Access Key ID and Secret Access Key
+		BasicAWSCredentials awsCreds = new BasicAWSCredentials(accessKeyId, secretAccessKey);
 			 
-			//This class connects to AWS S3 for us
-			AmazonS3 s3client = AmazonS3ClientBuilder.standard().withRegion(region)
+		//This class connects to AWS S3 for us
+		AmazonS3 s3client = AmazonS3ClientBuilder.standard().withRegion(region)
 			 		.withCredentials(new AWSStaticCredentialsProvider(awsCreds)).build();
 			    
-			//Specify the file's size
-			ObjectMetadata metadata = new ObjectMetadata();
-			metadata.setContentLength(bytes.length);
+		//Specify the file's size
+		ObjectMetadata metadata = new ObjectMetadata();
+		metadata.setContentLength(bytes.length);
 
-			InputStream targetStream = new ByteArrayInputStream(bytes);
-			//Create the upload request, giving it a bucket name, subdirectory, filename, input stream, and metadata
-			PutObjectRequest uploadRequest = new PutObjectRequest(bucketName, filename, targetStream, metadata);
-			//Make it public so we can use it as a public URL on the internet
-			uploadRequest.setCannedAcl(CannedAccessControlList.PublicRead);
+		InputStream targetStream = new ByteArrayInputStream(bytes);
+		//Create the upload request, giving it a bucket name, subdirectory, filename, input stream, and metadata
+		PutObjectRequest uploadRequest = new PutObjectRequest(bucketName, filename, targetStream, metadata);
+		//Make it public so we can use it as a public URL on the internet
+		uploadRequest.setCannedAcl(CannedAccessControlList.PublicRead);
 			    
-			//Upload the file. This can take a while for big files!
-			s3client.putObject(uploadRequest);
+		//Upload the file. This can take a while for big files!
+		s3client.putObject(uploadRequest);
 			  
-			System.out.println("Photo uploaded");
-			   	
-		}
+		System.out.println("Photo uploaded");
 		    
 		if(studentService.add(student)) {
 			//System.out.println("Student Added");
@@ -188,54 +192,47 @@ public class ProjectController {
 		  
 		RedirectView redirectView = new RedirectView();
 		
-		String filename = file.getOriginalFilename();   
+		String filename = "test" + file.getOriginalFilename().substring(file.getOriginalFilename().length() - 4);
 	    
 	    byte[] bytes = file.getBytes();  
 	    System.out.println("bytes.size="+ bytes.length);
 			
-		if(filename.endsWith(".jpg") || filename.endsWith(".png") || filename.endsWith(".JPG") || filename.endsWith(".PNG")){
+	    String accessKeyId = "YOUR_ACCESS_KEY_ID";
+		String secretAccessKey =  "YOUR_SECRET_ACCESS_KEY";
+		String region = "us-east-2";
+		String bucketName = "neelbucket2";
 			    
-			String accessKeyId = "YOUR_ACCESS_KEY";
-			String secretAccessKey =  "YOUR_SECRET_KEY";
-			String region = "us-east-2";
-			String bucketName = "neelbucket2";
-			    
-			//AWS Access Key ID and Secret Access Key
-			BasicAWSCredentials awsCreds = new BasicAWSCredentials(accessKeyId, secretAccessKey);
+		//AWS Access Key ID and Secret Access Key
+		BasicAWSCredentials awsCreds = new BasicAWSCredentials(accessKeyId, secretAccessKey);
 			   
-			//This class connects to AWS S3 for us
-			AmazonS3 s3client = AmazonS3ClientBuilder.standard().withRegion(region)
+		//This class connects to AWS S3 for us
+		AmazonS3 s3client = AmazonS3ClientBuilder.standard().withRegion(region)
 			    		.withCredentials(new AWSStaticCredentialsProvider(awsCreds)).build();
 			    
-			//Specify the file's size
-			ObjectMetadata metadata = new ObjectMetadata();
-			metadata.setContentLength(bytes.length);
+		//Specify the file's size
+		ObjectMetadata metadata = new ObjectMetadata();
+		metadata.setContentLength(bytes.length);
 
-			InputStream targetStream = new ByteArrayInputStream(bytes);
-			//Create the upload request, giving it a bucket name, subdirectory, filename, input stream, and metadata
-			PutObjectRequest uploadRequest = new PutObjectRequest(bucketName, filename, targetStream, metadata);
-			//Make it public so we can use it as a public URL on the internet
-			uploadRequest.setCannedAcl(CannedAccessControlList.PublicRead);
-			    
-			//Upload the file. This can take a while for big files!
-			s3client.putObject(uploadRequest);
-			System.out.println("Photo uploaded");
-			   
-
-			    	
-		}
+		InputStream targetStream = new ByteArrayInputStream(bytes);
+		//Create the upload request, giving it a bucket name, subdirectory, filename, input stream, and metadata
+		PutObjectRequest uploadRequest = new PutObjectRequest(bucketName, filename, targetStream, metadata);
+		//Make it public so we can use it as a public URL on the internet
+		uploadRequest.setCannedAcl(CannedAccessControlList.PublicRead);
+		    
+		//Upload the file. This can take a while for big files!
+		s3client.putObject(uploadRequest);
+		System.out.println("Photo uploaded");
+			  
 		redirectView.setUrl("http://127.0.0.1:5000/image_recognition/");
 		return redirectView;
-//		//return new ModelAndView("uploadphoto"); 
-//		redirectView.setUrl("http://127.0.0.1:9090/");
-//		return redirectView;
 	}
 	
 	@RequestMapping("/logout")
 	public ModelAndView logout(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
 
 		session.invalidate();
-		return new ModelAndView("login");
+		model.put("first", true);
+		return new ModelAndView("login","model",model);
 	}
 	
 	@RequestMapping("/student")

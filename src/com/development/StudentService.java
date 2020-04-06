@@ -110,5 +110,15 @@ public class StudentService {
         	return false;
         }
     }
+    public boolean update() {
+        DBCollection coll = MongoFactory.getCollection(db_name, db_collection);
+ 
+        // Fetching the record object from the mongo database.
+        DBObject update_query = new BasicDBObject();
+        update_query.put("presence", false);
+        coll.update(new BasicDBObject(), update_query, false, true);
+        
+        return true;
+    }
 
 }
