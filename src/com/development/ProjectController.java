@@ -146,12 +146,13 @@ public class ProjectController {
 	    
 		byte[] bytes = file.getBytes();  
 		System.out.println("bytes.size="+ bytes.length);
-			
-		filename = studentId + filename.substring(filename.length() - 4);			
+		
+		filename = studentId + filename.substring(filename.lastIndexOf('.'));
+					
 		student.setImageName(filename);
 		System.out.println("File Name: " + filename);
-	    String accessKeyId = "YOUR_ACCESS_KEY_ID";
-		String secretAccessKey =  "YOUR_SECRET_ACCESS_KEY";
+	    String accessKeyId = "YOUR_ACCESS_KEY";
+		String secretAccessKey =  "YOUR_SECRET_KEY";
 		String region = "us-east-2";
 		String bucketName = "neelbucket1";
 			    
@@ -192,13 +193,14 @@ public class ProjectController {
 		  
 		RedirectView redirectView = new RedirectView();
 		
-		String filename = "test" + file.getOriginalFilename().substring(file.getOriginalFilename().length() - 4);
+		String filename = file.getOriginalFilename();
+		filename = "test" + filename.substring(filename.lastIndexOf('.'));
+
 	    
 	    byte[] bytes = file.getBytes();  
 	    System.out.println("bytes.size="+ bytes.length);
-			
-	    String accessKeyId = "YOUR_ACCESS_KEY_ID";
-		String secretAccessKey =  "YOUR_SECRET_ACCESS_KEY";
+	    String accessKeyId = "YOUR_ACCESS_KEY";
+		String secretAccessKey =  "YOUR_SECRET_KEY";
 		String region = "us-east-2";
 		String bucketName = "neelbucket2";
 			    
