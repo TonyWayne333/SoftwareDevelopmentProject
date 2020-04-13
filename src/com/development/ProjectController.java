@@ -38,9 +38,7 @@ public class ProjectController {
 		
 	Map<String,Object> model = new HashMap<String,Object>();
 	
-	//mapping with signup.jsp
 	@RequestMapping("/signUp")
-	//method to process registration request
 	public ModelAndView signUp(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
 	    
 	    Professor professor = new Professor();
@@ -85,7 +83,6 @@ public class ProjectController {
 	}
 	
 	@RequestMapping("/classlist")
-	//method to process registration request
 	public ModelAndView classlist(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
 		
 		Professor professor = professorService.findUserId(session.getValue("professorId").toString());
@@ -93,7 +90,6 @@ public class ProjectController {
 		return new ModelAndView("classlist", "professor", professor);
 	}
 	@RequestMapping("/resetClassList")
-	//method to process registration request
 	public ModelAndView resetClassList(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
 		
 		Professor professor = professorService.findUserId(session.getValue("professorId").toString());
@@ -101,8 +97,6 @@ public class ProjectController {
 		return new ModelAndView("classlist", "professor", professor);
 	}
 	@RequestMapping("/Update")
-	
-	//method to process registration request
 	public ModelAndView update(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
 		  
 		if(session.getValue("professorId").equals(null)) {
@@ -125,7 +119,6 @@ public class ProjectController {
 	}
 	
 	@RequestMapping("/register")
-	//method to process registration request
 	public ModelAndView register(@RequestParam CommonsMultipartFile file,@RequestParam String studentId,
 			   @RequestParam String firstName,@RequestParam String lastName,@RequestParam String emailId,@RequestParam String phone,HttpSession session) throws IOException {
 	
@@ -135,7 +128,6 @@ public class ProjectController {
 		student.setLastName(lastName);
 		student.setEmailId(emailId);
 		student.setPhone(phone);
-		//student.setPresence("false");
 	      
 		ServletContext context = session.getServletContext();  
 		final String UPLOAD_DIRECTORY ="/images";  
@@ -155,31 +147,22 @@ public class ProjectController {
 		String secretAccessKey =  "YOUR_SECRET_KEY";
 		String region = "us-east-2";
 		String bucketName = "neelbucket1";
-			    
-		//AWS Access Key ID and Secret Access Key
+		
 		BasicAWSCredentials awsCreds = new BasicAWSCredentials(accessKeyId, secretAccessKey);
-			 
-		//This class connects to AWS S3 for us
 		AmazonS3 s3client = AmazonS3ClientBuilder.standard().withRegion(region)
 			 		.withCredentials(new AWSStaticCredentialsProvider(awsCreds)).build();
 			    
-		//Specify the file's size
 		ObjectMetadata metadata = new ObjectMetadata();
 		metadata.setContentLength(bytes.length);
 
 		InputStream targetStream = new ByteArrayInputStream(bytes);
-		//Create the upload request, giving it a bucket name, subdirectory, filename, input stream, and metadata
 		PutObjectRequest uploadRequest = new PutObjectRequest(bucketName, filename, targetStream, metadata);
-		//Make it public so we can use it as a public URL on the internet
 		uploadRequest.setCannedAcl(CannedAccessControlList.PublicRead);
-			    
-		//Upload the file. This can take a while for big files!
 		s3client.putObject(uploadRequest);
 			  
 		System.out.println("Photo uploaded");
 		    
 		if(studentService.add(student)) {
-			//System.out.println("Student Added");
 			return new ModelAndView("student", "success", true); 
 		}else {
 			return new ModelAndView("student", "success", false); 
@@ -188,7 +171,6 @@ public class ProjectController {
 	}
 	
 	@RequestMapping("/photoupload")
-	//method to process registration request
 	public RedirectView photoUpload(@RequestParam CommonsMultipartFile file, HttpServletResponse response) throws IOException {
 		  
 		RedirectView redirectView = new RedirectView();
@@ -199,29 +181,23 @@ public class ProjectController {
 	    
 	    byte[] bytes = file.getBytes();  
 	    System.out.println("bytes.size="+ bytes.length);
+			
 	    String accessKeyId = "YOUR_ACCESS_KEY";
 		String secretAccessKey =  "YOUR_SECRET_KEY";
 		String region = "us-east-2";
 		String bucketName = "neelbucket2";
-			    
-		//AWS Access Key ID and Secret Access Key
+		
 		BasicAWSCredentials awsCreds = new BasicAWSCredentials(accessKeyId, secretAccessKey);
-			   
-		//This class connects to AWS S3 for us
 		AmazonS3 s3client = AmazonS3ClientBuilder.standard().withRegion(region)
 			    		.withCredentials(new AWSStaticCredentialsProvider(awsCreds)).build();
 			    
-		//Specify the file's size
 		ObjectMetadata metadata = new ObjectMetadata();
 		metadata.setContentLength(bytes.length);
 
 		InputStream targetStream = new ByteArrayInputStream(bytes);
-		//Create the upload request, giving it a bucket name, subdirectory, filename, input stream, and metadata
 		PutObjectRequest uploadRequest = new PutObjectRequest(bucketName, filename, targetStream, metadata);
-		//Make it public so we can use it as a public URL on the internet
 		uploadRequest.setCannedAcl(CannedAccessControlList.PublicRead);
 		    
-		//Upload the file. This can take a while for big files!
 		s3client.putObject(uploadRequest);
 		System.out.println("Photo uploaded");
 			  

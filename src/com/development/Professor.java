@@ -4,12 +4,7 @@ import java.io.Serializable;
 import java.lang.String;
 import javax.persistence.*;
 
-/**
- * Entity implementation class for Entity: Professor
- *
- */
 @Entity
-
 public class Professor implements Serializable {
 
 	   
